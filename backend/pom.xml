@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ============================================= -->
+    <!-- PARENT: Spring Boot Starter Parent            -->
+    <!-- Fournit les versions par défaut de toutes     -->
+    <!-- les dépendances Spring Boot                   -->
+    <!-- ============================================= -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.2</version>
+        <relativePath/>
+    </parent>
+
+    <!-- ============================================= -->
+    <!-- INFORMATIONS DU PROJET                        -->
+    <!-- ============================================= -->
+    <groupId>com.recruitment</groupId>
+    <artifactId>platform</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>Recruitment Platform</name>
+    <description>Plateforme de Recrutement Intelligent - Backend API</description>
+
+    <!-- ============================================= -->
+    <!-- PROPRIÉTÉS                                    -->
+    <!-- Java 21 + version de la librairie JWT         -->
+    <!-- ============================================= -->
+    <properties>
+        <java.version>21</java.version>
+        <jjwt.version>0.12.6</jjwt.version>
+    </properties>
+
+    <!-- ============================================= -->
+    <!-- DÉPENDANCES                                   -->
+    <!-- ============================================= -->
+    <dependencies>
+
+        <!-- ========== SPRING WEB ========== -->
+        <!-- Permet de créer des API REST (controllers, endpoints HTTP) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- ========== SPRING DATA JPA ========== -->
+        <!-- ORM : permet de mapper les classes Java aux tables PostgreSQL -->
+        <!-- Fournit JpaRepository pour les opérations CRUD automatiques -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!-- ========== SPRING SECURITY ========== -->
+        <!-- Gère l'authentification (login) et l'autorisation (rôles) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <!-- ========== SPRING VALIDATION ========== -->
+        <!-- Annotations de validation (@NotBlank, @Email, @Size, etc.) -->
+        <!-- Permet de valider automatiquement les données reçues -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <!-- ========== POSTGRESQL DRIVER ========== -->
+        <!-- Connecteur JDBC pour communiquer avec la base PostgreSQL -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- ========== LOMBOK ========== -->
+        <!-- Génère automatiquement les getters, setters, constructeurs, -->
+        <!-- toString, equals, hashCode via des annotations (@Data, etc.) -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- ========== JWT (JSON Web Token) ========== -->
+        <!-- 3 librairies pour générer et vérifier les tokens JWT -->
+        <!-- jjwt-api : l'interface (les méthodes qu'on utilise) -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
+        <!-- jjwt-impl : l'implémentation (le code qui fait le travail) -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- jjwt-jackson : sérialisation JSON des tokens -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- ========== SPRING BOOT TEST ========== -->
+        <!-- Outils de test (JUnit, Mockito, etc.) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- ========== SPRING SECURITY TEST ========== -->
+        <!-- Outils de test spécifiques à la sécurité -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <!-- ============================================= -->
+    <!-- PLUGIN MAVEN SPRING BOOT                      -->
+    <!-- Permet de lancer l'app avec: mvn spring-boot:run -->
+    <!-- ============================================= -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,64 @@
+# ============================================================
+# CONFIGURATION PRINCIPALE DE L'APPLICATION
+# ============================================================
+# Ce fichier configure tous les paramètres de l'application :
+# connexion à la base de données, sécurité, serveur, etc.
+
+# ---------- SERVEUR ----------
+server:
+  port: 8080    # Port sur lequel l'API sera accessible
+
+# ---------- BASE DE DONNÉES POSTGRESQL ----------
+spring:
+  sql:
+    init:
+      # Applique les corrections de schéma nécessaires sur la base existante.
+      mode: always
+  datasource:
+    # URL de connexion : jdbc:postgresql://[hôte]:[port]/[nom_base]
+    url: jdbc:postgresql://localhost:5433/recruitment_db
+    username: postgres       # ⚠️ Adaptez à votre installation
+    password: ayoub       # ⚠️ Adaptez à votre installation
+    driver-class-name: org.postgresql.Driver
+
+  # ---------- JPA / HIBERNATE ----------
+  jpa:
+    defer-datasource-initialization: true
+    # Hibernate = l'ORM qui traduit les classes Java en tables SQL
+    hibernate:
+      # ddl-auto=update : Hibernate crée/modifie les tables automatiquement
+      # au démarrage selon vos entités Java.
+      # En production, on utiliserait "validate" ou "none" + Flyway/Liquibase
+      ddl-auto: update
+    # Affiche les requêtes SQL dans la console (utile pour le debug)
+    show-sql: true
+    properties:
+      hibernate:
+        # Formatte les requêtes SQL affichées pour les rendre lisibles
+        format_sql: true
+        # Dialecte PostgreSQL : dit à Hibernate comment générer le SQL
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  # ---------- TAILLE MAX DES FICHIERS (pour upload CV) ----------
+  servlet:
+    multipart:
+      max-file-size: 10MB       # Taille max d'un fichier uploadé
+      max-request-size: 10MB    # Taille max d'une requête
+
+# ---------- CONFIGURATION JWT ----------
+# Ces valeurs sont utilisées par JwtTokenProvider pour générer les tokens
+app:
+  jwt:
+    # Clé secrète pour signer les tokens (à changer en production !)
+    secret: MaSuperCleSecreteJWTQuiDoitEtreTresLongueEtComplexePourLaSecurite2024PlatformeRecrutement
+    # Durée de validité du token en millisecondes
+    # 86400000 ms = 24 heures
+    expiration: 86400000
+
+# ---------- LOGGING ----------
+logging:
+  level:
+    # Affiche les requêtes SQL avec leurs paramètres (utile pour debug)
+    org.hibernate.SQL: DEBUG
+    # Niveau général de l'application
+    com.recruitment.platform: DEBUG
